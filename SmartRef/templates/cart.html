@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Cart
+{% endblock %}
+
+{% block content %}
+<script src="{{ url_for('static', filename='updatecart.js')}}"></script>
+<div id="summary">Summary of your cart</div>
+    {% for cartitem in cart|batch(count) %}
+        {% for c in cartitem %}
+            <div class="row" id="cartdata">
+                <img class = "column" id="cartimg" src="{{ url_for('static', filename = 'productimage/'+ c[7]+'.jpeg') }}",  alt="There is no product image"/>
+                <div class="column" name="productid" id="cartid">{{c[3]}}</div>
+                <div class="column" name="productname" id="cartname">{{c[4]}}</div>
+                <select class="form-control" name="productqty" id="cartqty">
+                    {% for i in range(c[8]+1) %}
+                        {% if i != c[5] %}
+                            <option>{{i}}</option>
+                        {% else %}
+                            <option selected="selected">{{i}}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                <div class="column" name="productprice" id="cartprice">{{c[6]}}</div>
+            </div>
+        {% endfor %}
+    {% endfor %}
+    <button class="btn btn-primary clear" id="clearcart">Clear cart</button>
+    <button class="btn btn-primary checkout" id="checkout">Checkout</button>
+{% endblock %}

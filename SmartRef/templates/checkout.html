@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Checkout
+{% endblock %}
+
+{% block content %}
+    <script src="{{ url_for('static', filename='cardchecker.js')}}"></script>
+    <div id="checkoutpage">Checkout</div>
+    <div id="checkoutform">
+    <div class="col-md-6 mb-3">
+        <label for="firstName">First name</label>
+        <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="lastName">Last name</label>
+        <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" placeholder="" value="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="address">Adress</label>
+        <input type="text" class="form-control" id="address" placeholder="" value="" required="">
+    </div>
+    <div class="col-md-6 mb-3" id="coun">
+        <label for="country">Country</label>
+        <select id="country" required="">
+            <option value="">Choose...</option>
+            <option>Poland</option>
+        </select>
+    </div>
+    <div class="col-md-6 mb-3" id="voi">
+        <label for="voivodeship">Voivodeship</label>
+        <select id="voivodeship" required="">
+            <option value="">Choose...</option>
+            <option>Mazovian</option>
+        </select>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="creditCardName">Name on the card</label>
+        <input type="text" class="form-control" id="creditCardName" placeholder="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="creditCardNumber">Credit Card Number</label>
+        <input type="text" class="form-control" id="creditCardNumber" placeholder="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="creditCardExpiration">Expiration Date</label>
+        <input type="text" class="form-control" id="creditCardExpiration" placeholder="" required="">
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="creditCardCode">CVV</label>
+        <input type="text" class="form-control" id="creditCardCode" placeholder="" required="">
+    </div>
+    </div>
+    <button class="btn btn-primary order" id="order">Order</button>
+    <div class="col-md-4 order-md-2 mb-4" id="ordersummary">
+        <span class="text">Your products</span>
+        <ul class="list-group mb-3">
+            {% for cartitem in cart|batch(cartcount) %}
+                {% for c in cartitem %}
+                    <li>
+                        <div>
+                        <h7 class="my-0">{{c[0]}}</h7>
+                        </div>
+                        <span class="text-muted">{{c[1]}}</span>
+                    </li>
+                {% endfor %}
+            {% endfor %}    
+          <li>
+            <span>Total (PLN)</span>
+            <strong>{{total}}</strong>
+          </li>
+        </ul>
+      </div>
+{% endblock %}

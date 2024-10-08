@@ -1,0 +1,41 @@
+{% extends "layout.html" %} {% block title %} Panel {% endblock %} {% block
+content %}
+<div class="login" name="login" id="loginwelcome">Here's your order history, {{ username }}</div>
+<table class="table table-sm" name="orders">
+  <thead>
+    <tr id="custom">
+      <th scope="col">Order</th>
+      <th scope="col">Date</th>
+      <th scope="col">Quantity</th>
+      <th scope="col">Product</th>
+      <th scope="col">Price</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  {% for order in orders |batch(orderscount)%}
+  {% for o in order %}
+  <tbody>
+    <tr>
+      <td>{{ o[0] }}</td>
+      <td>{{ o[1] }}</td>
+      <td>
+        <ul style="list-style-type: none; margin-left: -0.5rem;">
+          <li>{{ o[3] |replace(',', '<br>' | safe ) |replace(' ', '' | safe) }}</li>
+      </ul>
+      </td>
+      <td>
+        <ul style="list-style-type: none; margin-left: -1.5rem;">
+          <li>{{o[2]  |replace(',', '<br>' | safe ) |replace(' ', '' | safe)}}</li>
+      </ul>
+      </td>
+      <td>
+        <ul style="list-style-type: none; margin-left: -1.5rem;">
+          <li>{{o[4]  |replace(',', '<br>' | safe ) |replace(' ', '' | safe)}}</li>
+      </ul>
+      </td>
+      <td>{{ o[5] }}</td>
+    </tr>
+  </tbody>
+  {% endfor %}{% endfor %}
+</table>
+{% endblock %}
